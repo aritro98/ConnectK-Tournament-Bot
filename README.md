@@ -1,1 +1,1 @@
-# Connect-K Game Bot
+# Connect-K Tournament Bot
