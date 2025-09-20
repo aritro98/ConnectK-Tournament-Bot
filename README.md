@@ -17,4 +17,10 @@ Connect-K is a two-player game similar to Connect-4 but generalized — players 
 12. [Future Scope](#future-scope)
 
 ## Overview
-The project provides a lightweight, reproducible environment to develop, test, and compete bots that play the generalized Connect-K game (like Connect-4 but with a configurable K). It bundles a compiled tournament engine that orchestrates matches and a simple Python bot interface so participants can focus on writing game logic and strategies without worrying about wiring, matchmaking, or rule enforcement.
+The project provides a lightweight, reproducible environment to develop, test, and compete bots that play the generalized Connect-K game (like Connect-4 but with a configurable K). It bundles a compiled tournament engine that orchestrates matches and a simple python bot interface so participants can focus on writing game logic and strategies without worrying about wiring, matchmaking, or rule enforcement.
+
+## Project Workflow
+- **Prepare bots**: Each participant implements a single Python file with the required init and next_move functions.
+- **Place bots**: Put sample and participant bot files inside `bots/`. The engine loads every `.py` in that folder.
+- **Run engine**: Run the compiled engine (`connectk_engine.exe`) from the repo root. It automatically runs tournament matches, logs board states and per-move times, and produces match results.
+- **Collect results**: The engine prints winners, draws, and any disqualifications (timeouts/invalid moves). Use the printed output or redirect to a file for later analysis.
