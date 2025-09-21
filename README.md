@@ -39,3 +39,24 @@ The project provides a lightweight, reproducible environment to develop, test, a
 ## Technologies Used
 - **Python 3.9 (or higher)**: For writing participant bots (engine calls Python bots).
 - Compiled `connectk_engine.exe`: Provided binary (engine).
+
+## Bot Interface
+The bot must implement two functions exactly as below:
+```python
+def init(isFirst: bool, connectK: int):
+    """
+    Called once at the start of a game.
+    - isFirst: True if your bot is Player 1, else False.
+    - connectK: the K value required to win this match.
+    Save global state (player id, heuristics, time budgets) here.
+    """
+
+def next_move(board: list[list[int]]) -> int:
+    """
+    Called each turn to get your move.
+    - board: 2D list where board[0] is the top row and board[-1] is the bottom.
+      Cell values: 0 = empty, 1 = player1, 2 = player2.
+    - Return: integer column index (0-based) where you want to drop a piece.
+    """
+```
+**Important**: Only return a column `c` where `board[0][c] == 0` (top cell empty), otherwise the engine treats it as an invalid move.
