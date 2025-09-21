@@ -37,7 +37,7 @@ The project provides a lightweight, reproducible environment to develop, test, a
 - **Naming**: Save your Python bot as `<name>_bot.py` (e.g., `my_bot.py`). Files not following the format may not be considered.
 
 ## Technologies Used
-- **Python 3.9 (or higher)**: For writing participant bots (engine calls Python bots).
+- **Python 3.11**: For writing participant bots (engine calls Python bots).
 - Compiled `connectk_engine.exe`: Provided binary (engine).
 
 ## Bot Interface
@@ -89,3 +89,36 @@ def next_move(board):
     return random.choice(valid_columns)
 ```
 This demonstrates the minimal valid implementation.
+
+## Installation and Setup
+1. Install Python 3.11 (bots run under Python 3.11).
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/aritro98/ConnectK-Tournament-Bot.git
+   cd ConnectK-Tournament-Bot
+   ```
+3. Ensure the provided `connectk_engine.exe` is in the repo root and your bot files are in `bots/`.
+
+## Usage
+1. Run the engine from the repo root:
+   ```bash
+   ./connectk_engine.exe
+   ```
+2. Engine loads all `.py` files in `bots/`.
+3. For each match it calls `init(isFirst,connectK)` then alternately calls `next_move(board)` for both bots until a win/draw/disqualification occurs.
+4. Engine prints board states after moves, per-move time, and the final result (winner/draw/disq). Redirect output to a file if you want a persistent log.
+
+## Results
+The engine prints per-match results to stdout: winner, number of moves, disqualifications (if any), and optional per-move timing. Use these logs to compute rankings, win rates, and other statistics.
+
+**Suggested pipeline for organized results:**
+1. Run engine and redirect output: `./connectk_engine.exe > results/run_YYYYMMDD.log`
+2. Parse log to produce CSV of matches (playerA, playerB, winner, moves, disqualified?).
+3. Visualize standings (win %, avg move time, disqualification count).
+
+## Future Scope
+1. **Web UI/Dashboard**: Live visualization of matches, ELO-style ranking, and per-bot performance charts.
+2. **Automated evaluation suite**: Run thousands of matches with varied board sizes and K to stress-test bots.
+3. **Sandboxing/Containerization**: Run each bot in a resource-limited container for stricter safety and reproducibility.
+4. **Bot API enhancements**: Richer lifecycle hooks (`on_game_end`, `on_match_stats`), or allow JSON over stdin/stdout for language-independent bots.
+5. **Tournament modes**: Round-robin, Swiss, knockout, or ELO-based scheduling.
