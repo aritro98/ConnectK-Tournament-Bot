@@ -35,3 +35,7 @@ The project provides a lightweight, reproducible environment to develop, test, a
 - **Time limit**: Each move must be returned within 1 second. Exceeding 1s = instant disqualification.
 - **Valid moves only**: Returning an invalid column (a full column) = instant disqualification. Always ensure `board[0][col] == 0`.
 - **Naming**: Save your Python bot as `<name>_bot.py` (e.g., `my_bot.py`). Files not following the format may not be considered.
+
+## Technologies Used
+- **Python 3.9 (or higher)**: For writing participant bots (engine calls Python bots).
+- Compiled `connectk_engine.exe`: Provided binary (engine).
