@@ -96,8 +96,8 @@ This demonstrates the minimal valid implementation.
 
 ## Results
 - Tournament results and standings are available in:
-  - [stats](./stats/tournament_matrix_k5.csv)
-  - [stats](./stats/tournament_standings_k5.csv)
+  - [Results](./stats/tournament_matrix_k5.csv)
+  - [Standings](./stats/tournament_standings_k5.csv)
 
 ## Future Scope
 - Integrate advanced move ordering and caching for deeper search.
