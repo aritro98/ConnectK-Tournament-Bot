@@ -6,7 +6,7 @@ Connect-K is a two-player game similar to Connect-4 but generalized — players 
 1. [Overview](#overview)
 2. [Project Workflow](#project-workflow)
 3. [Key Features](#key-features)
-4. [Tournament Rules & Disqualification](#tournament-rules-and-disqualification)
+4. [Tournament Rules and Disqualification](#tournament-rules-and-disqualification)
 5. [Technologies Used](#technologies-used)
 6. [Bot Interface](#bot-interface)
 7. [Board Representation](#board-representation)
@@ -31,7 +31,7 @@ The project provides a lightweight, reproducible environment to develop, test, a
 - Sample bot provided as a template (random valid moves) to get started quickly.
 - Human-readable board prints and per-move timing in engine logs for debugging and transparency.
 
-## Tournament Rules & Disqualification
+## Tournament Rules and Disqualification
 - **Time limit**: Each move must be returned within 1 second. Exceeding 1s = instant disqualification.
 - **Valid moves only**: Returning an invalid column (a full column) = instant disqualification. Always ensure `board[0][col] == 0`.
-- **Naming**: Save your Python bot as <name>_bot.py (e.g., my_bot.py). Files not following the format may not be considered.
+- **Naming**: Save your Python bot as `<name>_bot.py` (e.g., `my_bot.py`). Files not following the format may not be considered.
