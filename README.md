@@ -23,10 +23,15 @@ The project provides a lightweight, reproducible environment to develop, test, a
 1. **Prepare bots**: Each participant implements a single Python file with the required `init` and `next_move` functions.
 2. **Place bots**: Put sample and participant bot files inside `bots/`. The engine loads every `.py` in that folder.
 3. **Run engine**: Run the compiled engine (`connectk_engine.exe`) from the repo root. It automatically runs tournament matches, logs board states and per-move times, and produces match results.
-4. **Collect results**: The engine prints winners, draws, and any disqualifications (timeouts/invalid moves). Use the printed output or redirect to a file for later analysis.
+4. **Collect results**: The engine prints winners, draws, and any disqualifications (timeouts/invalid moves). Uses the printed output or redirect to a file for later analysis.
 
 ## Key Features
 - Simple, documented bot interface (`init`, `next_move`) — easy to implement.
 - Engine enforces rules: move validity, 1s per-move time limit, and automated match orchestration.
 - Sample bot provided as a template (random valid moves) to get started quickly.
 - Human-readable board prints and per-move timing in engine logs for debugging and transparency.
+
+## Tournament Rules & Disqualification
+- **Time limit**: Each move must be returned within 1 second. Exceeding 1s = instant disqualification.
+- **Valid moves only**: Returning an invalid column (a full column) = instant disqualification. Always ensure `board[0][col] == 0`.
+- **Naming**: Save your Python bot as <name>_bot.py (e.g., my_bot.py). Files not following the format may not be considered.
