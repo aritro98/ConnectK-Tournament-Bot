@@ -1,6 +1,6 @@
 # Connect-K Tournament Bot
 
-Connect-K is a two-player game similar to Connect-4 but generalized — players alternately drop pieces into columns and attempt to be the first to connect K of their pieces in a row (horizontal, vertical, or diagonal). A game ends when a player connects K pieces or the board fills (draw).
+Connect-K is a two-player board game inspired by Connect-4, allowing variable board sizes and win conditions (K in-a-row). The objective is to align K consecutive pieces horizontally, vertically, or diagonally. The bot autonomously competes against others in tournament settings and aims to maximize its win rate using strategy and fast calculations.
 
 ## Table of Contents
 1. [Overview](#overview)
@@ -17,53 +17,44 @@ Connect-K is a two-player game similar to Connect-4 but generalized — players 
 12. [Future Scope](#future-scope)
 
 ## Overview
-The project provides a lightweight, reproducible environment to develop, test, and compete bots that play the generalized Connect-K game (like Connect-4 but with a configurable K). It bundles a compiled tournament engine that orchestrates matches and a simple python bot interface so participants can focus on writing game logic and strategies without worrying about wiring, matchmaking, or rule enforcement.
+This project contains an advanced AI bot for the generalized Connect-K game, designed for competitive programming tournaments. The bot leverages optimized search algorithms to excel in time-constrained, rule-driven environments.
 
 ## Project Workflow
-1. **Prepare bots**: Each participant implements a single Python file with the required `init` and `next_move` functions.
-2. **Place bots**: Put sample and participant bot files inside `bots/`. The engine loads every `.py` in that folder.
-3. **Run engine**: Run the compiled engine (`connectk_engine.exe`) from the repo root. It automatically runs tournament matches, logs board states and per-move times, and produces match results.
-4. **Collect results**: The engine prints winners, draws, and any disqualifications (timeouts/invalid moves). Uses the printed output or redirect to a file for later analysis.
+- Understand the official tournament rules and guidelines.
+- Implement and rigorously test the bot algorithm (`my_bot.py`).
+- Simulate tournaments and evaluate bot performance using provided CSV results.
+- Ensure strict adherence to all competition constraints.
 
 ## Key Features
-- Simple, documented bot interface (`init`, `next_move`) — easy to implement.
-- Engine enforces rules: move validity, 1s per-move time limit, and automated match orchestration.
-- Sample bot provided as a template (random valid moves) to get started quickly.
-- Human-readable board prints and per-move timing in engine logs for debugging and transparency.
+- **Iterative Deepening Minimax with Alpha-Beta Pruning**: Fast and deep search for optimal moves within a 1-second time frame.
+- **Smart Heuristic Evaluation**: Evaluates board state for both offense and defense, including threats, opportunities, and center control.
+- **Rule Compliance**: Only valid moves, no timeouts, and plays on any board size (5–10) and K-value (K>3).
+- **Tournament-Quality Reliability**: Tested with tournament match data and standings.
 
 ## Tournament Rules and Disqualification
-- **Time limit**: Each move must be returned within 1 second. Exceeding 1s = instant disqualification.
-- **Valid moves only**: Returning an invalid column (a full column) = instant disqualification. Always ensure `board[0][col] == 0`.
-- **Naming**: Save your Python bot as `<name>_bot.py` (e.g., `my_bot.py`). Files not following the format may not be considered.
+- **1 Second/Move Limit**: Each move must be returned within 1 second; exceeding this results in disqualification.
+- **Valid Column Requirement**: Placing a piece in a full column leads to instant disqualification.
+- **Function Interface**: Must implement `init(isFirst, connectK)` and `next_move(board)`, each meeting strict time constraints.
 
 ## Technologies Used
-- **Python 3.11**: For writing participant bots (engine calls Python bots).
-- Compiled `connectk_engine.exe`: Provided binary (engine).
+- Python 3.11+
+- Built-in standard libraries: `copy`, `random`, `time`
+- No third-party packages (per competition regulations)
 
 ## Bot Interface
 The bot must implement two functions exactly as below:
 ```python
-def init(isFirst: bool, connectK: int):
-    """
-    Called once at the start of a game.
-    - isFirst: True if your bot is Player 1, else False.
-    - connectK: the K value required to win this match.
-    Save global state (player id, heuristics, time budgets) here.
-    """
+def init(isFirst, connectK):
+    # Sets the bot's player ID and win condition
 
-def next_move(board: list[list[int]]) -> int:
-    """
-    Called each turn to get your move.
-    - board: 2D list where board[0] is the top row and board[-1] is the bottom.
-      Cell values: 0 = empty, 1 = player1, 2 = player2.
-    - Return: integer column index (0-based) where you want to drop a piece.
-    """
+def next_move(board):
+    # Returns the next column index where the bot should play
 ```
-**Important**: Only return a column `c` where `board[0][c] == 0` (top cell empty), otherwise the engine treats it as an invalid move.
 
 ## Board Representation
-- `board[row][col]` with `board[0]` = top row, `board[-1]` = bottom row.
-- Engine places a piece in the lowest available row in the selected column (pieces “fall” like Connect-4).
+- The board is a list of lists.
+- `0` = empty, `1` = Player 1, `2` = Player 2.
+- `board` is the top row, `board[-1]` is the bottom row.
 
 ## Sample Bot
 Save this template as `sample_bot.py` or `<name>_bot.py` to test:
@@ -97,28 +88,19 @@ This demonstrates the minimal valid implementation.
    git clone https://github.com/aritro98/ConnectK-Tournament-Bot.git
    cd ConnectK-Tournament-Bot
    ```
-3. Ensure the provided `connectk_engine.exe` is in the repo root and your bot files are in `bots/`.
+3. Run your bot via the supplied tournament engine (`connectk_engine.exe`) as instructed in the guidelines.
 
 ## Usage
-1. Run the engine from the repo root:
-   ```bash
-   ./connectk_engine.exe
-   ```
-2. Engine loads all `.py` files in `bots/`.
-3. For each match it calls `init(isFirst,connectK)` then alternately calls `next_move(board)` for both bots until a win/draw/disqualification occurs.
-4. Engine prints board states after moves, per-move time, and the final result (winner/draw/disq). Redirect output to a file if you want a persistent log.
+1. The bot can be directly imported or registered as an external participant in tournament scripts.
+2. To test, run tournament simulations using the configurations provided.
 
 ## Results
-The engine prints per-match results to stdout: winner, number of moves, disqualifications (if any), and optional per-move timing. Use these logs to compute rankings, win rates, and other statistics.
-
-**Suggested pipeline for organized results:**
-1. Run engine and redirect output: `./connectk_engine.exe > results/run_YYYYMMDD.log`
-2. Parse log to produce CSV of matches (playerA, playerB, winner, moves, disqualified?).
-3. Visualize standings (win %, avg move time, disqualification count).
+- Tournament results and standings are available in:
+  - ./stats/tournament_matrix_k5.csv
+  - ./stats/tournament_standings_k5.csv
 
 ## Future Scope
-1. **Web UI/Dashboard**: Live visualization of matches, ELO-style ranking, and per-bot performance charts.
-2. **Automated evaluation suite**: Run thousands of matches with varied board sizes and K to stress-test bots.
-3. **Sandboxing/Containerization**: Run each bot in a resource-limited container for stricter safety and reproducibility.
-4. **Bot API enhancements**: Richer lifecycle hooks (`on_game_end`, `on_match_stats`), or allow JSON over stdin/stdout for language-independent bots.
-5. **Tournament modes**: Round-robin, Swiss, knockout, or ELO-based scheduling.
+- Integrate advanced move ordering and caching for deeper search.
+- Add support for reinforcement learning or neural evaluation.
+- Enhance the evaluation function for larger board/K combinations.
+- Develop web-based or GUI-based Connect-K match visualizers.
