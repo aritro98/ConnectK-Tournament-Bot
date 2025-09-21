@@ -60,3 +60,32 @@ def next_move(board: list[list[int]]) -> int:
     """
 ```
 **Important**: Only return a column `c` where `board[0][c] == 0` (top cell empty), otherwise the engine treats it as an invalid move.
+
+## Board Representation
+- `board[row][col]` with `board[0]` = top row, `board[-1]` = bottom row.
+- Engine places a piece in the lowest available row in the selected column (pieces “fall” like Connect-4).
+
+## Sample Bot
+Save this template as `sample_bot.py` or `<name>_bot.py` to test:
+```python
+import random
+import time
+my_id = None
+connect_k = None
+
+def init(isFirst,connectK):
+    global my_id, connect_k
+    connect_k=connectK
+    if isFirst:
+        my_id=1
+    else:
+        my_id=2
+
+def next_move(board):
+    print(board)
+    # valid columns: those whose top cell is empty
+    valid_columns = [c for c in range(len(board[0])) if board[0][c] == 0]
+    time.sleep(0.1) 
+    return random.choice(valid_columns)
+```
+This demonstrates the minimal valid implementation.
