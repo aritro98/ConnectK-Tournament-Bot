@@ -19,7 +19,7 @@ Connect-K is a two-player board game inspired by Connect-4, allowing variable bo
 ## Overview
 This project contains an advanced AI bot for the generalized Connect-K game, designed for competitive programming tournaments. The bot leverages optimized search algorithms to excel in time-constrained, rule-driven environments.
 
-## Project Workflow
+## Workflow
 - Understand the official tournament rules and guidelines.
 - Implement and rigorously test the bot algorithm (`my_bot.py`).
 - Simulate tournaments and evaluate bot performance using provided CSV results.
