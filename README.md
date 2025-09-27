@@ -4,7 +4,7 @@ Connect-K is a two-player board game inspired by Connect-4, allowing variable bo
 
 ## Table of Contents
 1. [Overview](#overview)
-2. [Project Workflow](#project-workflow)
+2. [Workflow](#workflow)
 3. [Key Features](#key-features)
 4. [Tournament Rules and Disqualification](#tournament-rules-and-disqualification)
 5. [Technologies Used](#technologies-used)
